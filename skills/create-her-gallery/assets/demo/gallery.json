@@ -14,25 +14,9 @@
       "text": "她把好奇留给远方，\n也把认真留给每一个今天。\n世界给过她许多名字，\n而她始终保留着自己的光。",
       "media": [
         {
-          "src": "../backgrounds/star-meadow.jpg",
-          "alt": "星星散落在草地上的梦幻风景",
-          "caption": "愿她永远拥有出发的勇气。",
-          "motion": "slow-zoom",
-          "duration": 3.2
-        }
-      ]
-    },
-    {
-      "title": "温柔也有力量",
-      "kicker": "在彼此陪伴的时候",
-      "text": "她记得一句无心的话，\n也接得住一个突然低落的黄昏。\n那些看似细小的照顾，\n后来都成了岁月里安静的回声。",
-      "media": [
-        {
-          "src": "../backgrounds/teal-sky.jpg",
-          "alt": "青绿色天空下的童话风景",
-          "caption": "被她照亮的人，也想把光还给她。",
-          "motion": "drift-left",
-          "duration": 3.2
+          "src": "media/original-cartoon-pair.mp4",
+          "alt": "上方为虚构人物的示例原图，下方为同一构图的手绘卡通动画",
+          "caption": "演示素材为 AI 创建的虚构人物；下半段使用卡通图制作了三秒轻动画。"
         }
       ]
     }

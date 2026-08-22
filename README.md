@@ -68,7 +68,7 @@ python3 skills/create-her-gallery/scripts/build_gallery.py \
   --output demo.html
 ```
 
-生成后直接用浏览器打开 `demo.html`。演示配置不含任何私人素材。
+生成后直接用浏览器打开 `demo.html`。演示配置不含任何私人素材：人物原图和手绘卡通图均为 AI 创建的虚构内容，并已合成为“上方原图、下方三秒卡通轻动画”的 720×1080 对照视频。
 
 查看内置背景：
 
