@@ -417,6 +417,15 @@
       .media-panel { padding: 6px 14px 14px; transform: translateY(30px); }
       .chapter-page[data-phase="media"] .media-panel { height: auto; min-height: min(58svh, 520px); transform: translateY(0); }
       .chapter-page[data-phase="media"] .media-frame { height: min(56svh, 500px); }
+      .chapter-page[data-phase="media"] .media-viewport {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        transform: translateX(-50%);
+      }
       .media-frame { border-radius: 17px; }
       .media-meta { min-height: 34px; padding-top: 5px; }
       .page-turn { width: 70px; height: 70px; }
