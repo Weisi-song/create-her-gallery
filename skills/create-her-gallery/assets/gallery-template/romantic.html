@@ -425,6 +425,41 @@
       .page-turn { width: 70px; height: 70px; }
       .letter-card { width: calc(100vw - 28px); border-radius: 24px 24px 54px 24px; }
     }
+    @media (orientation: portrait) {
+      .chapter-page[data-phase="media"] .story-stage {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: calc(100vw - 20px);
+        height: auto;
+        min-height: calc(100svh - 88px);
+        margin-inline: auto;
+        gap: 0;
+      }
+      .chapter-page[data-phase="media"] .poem-panel {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .chapter-page[data-phase="media"] .media-panel {
+        flex: 0 0 auto;
+        align-self: stretch;
+        width: 100%;
+        max-width: 100%;
+        padding: 6px 14px 14px;
+      }
+      .chapter-page[data-phase="media"] .media-frame {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .chapter-page[data-phase="media"] .media-viewport {
+        flex: 0 0 auto;
+        width: min(334px, calc(100vw - 48px));
+        height: auto;
+        margin: 0 auto;
+        aspect-ratio: 2 / 3;
+      }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
       .preface-line, .poem-line { opacity: 1; transform: none; filter: none; }
