@@ -115,3 +115,81 @@ examples/                   # feng、hua、yi 三个脱敏定制案例
 ## License
 
 [MIT](LICENSE)
+
+---
+
+## English
+
+# Create Her Gallery
+
+Turn one person's photographs and stories into a poetic visual gallery made specifically for her.
+
+Create Her Gallery is a guided Codex Skill. Instead of starting with a complicated form, it works like a curatorial editor: it asks who she is and what you have experienced together, then helps shape the writing, chapters, illustration style, animation, music, and background before exporting a single offline HTML file.
+
+> Photos, videos, stories, and music are processed locally by default and do not need to be uploaded to a website.
+
+## What it creates
+
+- A narrative designed around a real person rather than a fixed life template
+- A consistent illustrated treatment for photographs
+- Gentle three-second animation for each image, paired with the original
+- Exported illustrations and prompts when no video-generation tool is available
+- Progressive text, autoplay, navigation, and replay interactions
+- User-provided music or public music with clear licensing and attribution
+- Three built-in backgrounds plus custom image support
+- One self-contained HTML file that can be opened, saved, and shared offline
+
+## Guided workflow
+
+1. **Meet her:** establish how to address her, your relationship, and the occasion.
+2. **Hear the story:** collect meaningful experiences, personality, quotations, and memories.
+3. **Curate the narrative:** propose two or three custom structures before completing the writing.
+4. **Create the imagery:** choose one consistent illustration style and animate the photographs.
+5. **Set the atmosphere:** select music and a background with clear rights.
+6. **Build the gallery:** embed everything in a single offline HTML file.
+7. **Review and revise:** test desktop and mobile layouts until the gift feels right.
+
+## Install and start
+
+```bash
+git clone https://github.com/Weisi-song/create-her-gallery.git
+cp -R create-her-gallery/skills/create-her-gallery ~/.codex/skills/
+```
+
+Then ask Codex:
+
+```text
+Please use $create-her-gallery to help me make a poetic gallery for an important woman in my life. Start by asking how I address her and what our relationship is.
+```
+
+## Local validation
+
+Python 3.10+ is required. FFmpeg is also needed for MOV handling, audio work, or original/animation composition.
+
+```bash
+python3 skills/create-her-gallery/scripts/validate_gallery.py \
+  skills/create-her-gallery/assets/demo/gallery.json
+
+python3 skills/create-her-gallery/scripts/build_gallery.py \
+  skills/create-her-gallery/assets/demo/gallery.json \
+  --output demo.html
+```
+
+## Sanitized examples
+
+The repository includes three sanitized curation manifests—`feng`, `hua`, and `yi`—to demonstrate how the same tool produces different narrative structures. They contain no original photos, video, or music and cannot be built as complete personal galleries.
+
+## Privacy and copyright
+
+- The repository contains no original family photos, videos, music, private story pages, or completed personal galleries.
+- Confirm that people in shared photographs agree to the intended sharing scope.
+- “Free download” does not automatically mean redistribution is allowed; verify every asset's license and attribution requirements.
+- Disclose AI-generated or AI-restored visuals and keep one consistent illustration style within a gallery.
+
+## Why a single HTML file?
+
+A gift should not require an account, app installation, or a live server. Images, short videos, text, and music are embedded into one file that the recipient can open with a double-click and keep offline.
+
+## License
+
+[MIT](LICENSE)
