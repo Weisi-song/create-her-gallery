@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+dist/
+*.generated.html
+
+# Local development material — never publish family media or generated gifts.
+/tests/
+/妈回忆录/
+/姑妈回忆录/
+/老周回忆录/

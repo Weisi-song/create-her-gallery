@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Her Gallery"
+  short_description: "一步步采访故事、生成卡通动画并完成带音乐的离线诗相册"
+  default_prompt: "Use $create-her-gallery to guide me step by step from choosing the recipient through stories, cartoon animations, music, background, preview, and final offline HTML."

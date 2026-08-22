@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Her Gallery</title>
+  <style>
+    :root { --mask-opacity: .25; --backdrop-blur: 0px; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: #2d3a4b;
+      background: #222;
+      font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+    button { font: inherit; }
+    button:focus-visible { outline: 3px solid #2d3a4b; outline-offset: 3px; }
+    .bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: var(--cover-image) center center / cover no-repeat;
+      filter: brightness(.85);
+      transition: filter .5s;
+    }
+    .bg[data-motion="slow-zoom"] { animation: background-zoom 24s ease-in-out infinite alternate; }
+    .mask {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: rgba(255, 255, 255, var(--mask-opacity));
+      backdrop-filter: blur(var(--backdrop-blur));
+    }
+    .main-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+    .center-card {
+      position: relative;
+      z-index: 2;
+      min-width: 320px;
+      max-width: 90vw;
+      max-height: 85vh;
+      margin: 0 0 32px;
+      padding: 80px 28px 36px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(255, 255, 255, .7);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .1);
+      animation: card-in .42s ease both;
+    }
+    .center-card[hidden] { display: none !important; }
+    .chapter-page { justify-content: flex-start; }
+    h1, h2, h3 { margin: 0 0 18px; color: #2d3a4b; font-weight: 700; }
+    .subtitle { margin-bottom: 18px; color: #5b6b7a; font-size: 1.1em; white-space: pre-line; }
+    .preface-copy { font-size: 1.1em; line-height: 2; white-space: pre-line; }
+    .btn {
+      margin-top: 24px;
+      padding: 12px 32px;
+      color: #2d3a4b;
+      background: #f7c873;
+      border: 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: #ffe1a8; transform: translateY(-1px); }
+    .videos { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 18px; }
+    .video-slot {
+      position: relative;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      background: rgba(255, 255, 255, .5);
+      border-radius: 12px;
+    }
+    .video-slot video, .video-slot img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 70vh;
+      border: 0;
+      border-radius: 12px;
+      object-fit: unset;
+    }
+    .video-slot img { display: block; }
+    .video-slot img[data-motion="slow-zoom"] { animation: slow-zoom 14s ease-in-out infinite alternate; }
+    .video-slot img[data-motion="drift-left"] { animation: drift-left 16s ease-in-out infinite alternate; }
+    .video-slot img[data-motion="drift-right"] { animation: drift-right 16s ease-in-out infinite alternate; }
+    .video-slot img[data-motion="breathe"] { animation: breathe 9s ease-in-out infinite; }
+    .chapter-actions { width: 100%; margin-top: 18px; display: flex; justify-content: space-between; gap: 1rem; }
+    .chapter-actions .btn { margin-top: 0; }
+    .end { margin-top: 24px; color: #2d3a4b; font-size: 1.2em; white-space: pre-line; }
+    .music-credit { margin: 18px 0 0; color: #5b6b7a; font-size: .72rem; line-height: 1.6; }
+    .music-credit a { color: inherit; }
+    .chapter-nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+      max-width: 100vw;
+      padding: 10px 18px 6px;
+      overflow-x: auto;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, .9);
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    }
+    .chapter-nav-btn {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      color: #2d3a4b;
+      background: none;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .chapter-nav-btn.active, .chapter-nav-btn:hover { background: #f7c873; }
+    .bgm-control {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, .7);
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+      backdrop-filter: blur(6px);
+    }
+    .bgm-control[data-ready="true"] { display: flex; }
+    .bgm-button { padding: 0; color: #2d3a4b; background: none; border: 0; font-size: 1.3em; cursor: pointer; }
+    .bgm-label { color: #555; }
+    @keyframes card-in { from { opacity: 0; transform: translateY(8px); } }
+    @keyframes background-zoom { to { transform: scale(1.08); } }
+    @keyframes slow-zoom { to { transform: scale(1.08); } }
+    @keyframes drift-left { to { transform: translateX(-5%) scale(1.04); } }
+    @keyframes drift-right { from { transform: translateX(-5%) scale(1.04); } to { transform: translateX(0) scale(1.04); } }
+    @keyframes breathe { 50% { transform: scale(1.035); } }
+    @media (max-width: 600px) {
+      .center-card { max-height: 80vh; padding: 70px 4vw 18px; }
+      .chapter-nav { padding: 8px 4vw 4px; }
+      .videos { flex-direction: column; gap: 12px; }
+      .video-slot { width: 90vw; height: 180px; }
+      .bgm-control { left: 12px; bottom: 12px; padding: 5px 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" id="background" aria-hidden="true"></div>
+  <div class="mask" aria-hidden="true"></div>
+  <audio id="bgm" loop preload="metadata"></audio>
+  <div class="bgm-control" id="bgmControl" data-ready="false">
+    <button class="bgm-button" id="bgmButton" type="button" aria-label="播放背景音乐">▶️</button>
+    <span class="bgm-label">BGM</span>
+  </div>
+  <nav class="chapter-nav" id="chapterNav" aria-label="章节导航"></nav>
+  <main class="main-center" id="pages"></main>
+  <script id="gallery-data" type="application/json">__GALLERY_DATA__</script>
+  <script>
+    (() => {
+      const data = JSON.parse(document.getElementById('gallery-data').textContent);
+      const labels = {
+        loading: '正在加载回忆...', enterHome: '进入主页', start: '打开相册',
+        finish: '结束展览', restart: '回到首页 重新观看', ...(data.labels || {})
+      };
+      const appearance = { maskOpacity: .25, backdropBlur: 0, backgroundMotion: 'none', ...(data.appearance || {}) };
+      document.title = `${data.title}——致${data.displayName}`;
+      document.documentElement.style.setProperty('--mask-opacity', String(appearance.maskOpacity));
+      document.documentElement.style.setProperty('--backdrop-blur', `${appearance.backdropBlur}px`);
+      document.documentElement.style.setProperty('--cover-image', data.background ? `url("${data.background}")` : 'none');
+      document.getElementById('background').dataset.motion = appearance.backgroundMotion;
+
+      const pages = document.getElementById('pages');
+      const nav = document.getElementById('chapterNav');
+      const imageTypes = ['data:image/jpeg', 'data:image/png', 'data:image/gif', 'data:image/webp', 'data:image/avif'];
+      const isImage = src => imageTypes.some(type => src.startsWith(type)) || /\.(jpe?g|png|gif|webp|avif)(?:$|[?#])/i.test(src);
+
+      const button = (text, target) => {
+        const element = document.createElement('button');
+        element.className = 'btn';
+        element.type = 'button';
+        element.textContent = text;
+        element.dataset.target = target;
+        return element;
+      };
+      const page = (id, className = '') => {
+        const element = document.createElement('section');
+        element.id = id;
+        element.className = `center-card ${className}`.trim();
+        element.hidden = true;
+        return element;
+      };
+
+      const loadingPage = page('loading');
+      loadingPage.textContent = labels.loading;
+      pages.appendChild(loadingPage);
+
+      const prefacePage = page('preface');
+      const prefaceCopy = document.createElement('div');
+      prefaceCopy.className = 'preface-copy';
+      prefaceCopy.textContent = data.preface;
+      prefacePage.append(prefaceCopy, button(labels.enterHome, 'home'));
+      pages.appendChild(prefacePage);
+
+      const homePage = page('home');
+      const homeTitle = document.createElement('h1');
+      homeTitle.textContent = data.title;
+      const homeSubtitle = document.createElement('div');
+      homeSubtitle.className = 'subtitle';
+      homeSubtitle.textContent = data.subtitle || '';
+      homePage.append(homeTitle, homeSubtitle, button(labels.start, 'chapter1'));
+      pages.appendChild(homePage);
+
+      data.chapters.forEach((chapter, index) => {
+        const id = `chapter${index + 1}`;
+        const navButton = document.createElement('button');
+        navButton.className = 'chapter-nav-btn';
+        navButton.type = 'button';
+        navButton.id = `nav-ch${index + 1}`;
+        navButton.dataset.target = id;
+        navButton.textContent = `第${['一','二','三','四','五','六','七','八','九','十','十一','十二'][index]}章`;
+        nav.appendChild(navButton);
+
+        const chapterPage = page(id, 'chapter-page');
+        const title = document.createElement('h2');
+        title.textContent = `第${['一','二','三','四','五','六','七','八','九','十','十一','十二'][index]}章：${chapter.title}`;
+        const text = document.createElement('div');
+        text.className = 'subtitle';
+        text.textContent = chapter.text || '';
+        const mediaRow = document.createElement('div');
+        mediaRow.className = 'videos';
+        (chapter.media || []).forEach(item => {
+          const slot = document.createElement('div');
+          slot.className = 'video-slot';
+          if (isImage(item.src)) {
+            const image = document.createElement('img');
+            image.src = item.src;
+            image.alt = item.alt ?? '';
+            image.dataset.motion = item.motion || 'none';
+            slot.appendChild(image);
+          } else {
+            const video = document.createElement('video');
+            video.src = item.src;
+            video.controls = true;
+            video.playsInline = true;
+            video.preload = 'metadata';
+            video.setAttribute('aria-label', item.alt || item.caption || `第 ${index + 1} 章影像`);
+            slot.appendChild(video);
+          }
+          mediaRow.appendChild(slot);
+        });
+        const actions = document.createElement('div');
+        actions.className = 'chapter-actions';
+        if (index > 0) actions.appendChild(button('上一章', `chapter${index}`));
+        else actions.appendChild(document.createElement('span'));
+        actions.appendChild(button(index === data.chapters.length - 1 ? labels.finish : '下一章', index === data.chapters.length - 1 ? 'end' : `chapter${index + 2}`));
+        chapterPage.append(title, text, mediaRow, actions);
+        pages.appendChild(chapterPage);
+      });
+
+      const endPage = page('end');
+      const dedication = document.createElement('div');
+      dedication.className = 'end';
+      dedication.textContent = data.dedication;
+      const musicCredit = document.createElement('p');
+      musicCredit.className = 'music-credit';
+      let hasCredits = false;
+      const appendCredit = (label, credit) => {
+        if (!credit?.attribution) return;
+        if (hasCredits) musicCredit.append(document.createElement('br'));
+        musicCredit.append(document.createTextNode(`${label}：${credit.attribution}`));
+        if (credit.sourceUrl) {
+          const sourceLink = document.createElement('a');
+          sourceLink.href = credit.sourceUrl;
+          sourceLink.target = '_blank';
+          sourceLink.rel = 'noopener noreferrer';
+          sourceLink.textContent = '查看来源';
+          musicCredit.append(document.createTextNode(' · '), sourceLink);
+        }
+        hasCredits = true;
+      };
+      appendCredit('音乐', data.music);
+      appendCredit('背景', data.backgroundMeta);
+      musicCredit.hidden = !hasCredits;
+      endPage.append(dedication, musicCredit, button(labels.restart, 'home'));
+      pages.appendChild(endPage);
+
+      const showPage = id => {
+        pages.querySelectorAll('.center-card').forEach(item => { item.hidden = true; });
+        const target = document.getElementById(id);
+        if (!target) return;
+        target.hidden = false;
+        nav.querySelectorAll('.chapter-nav-btn').forEach(item => item.classList.toggle('active', item.dataset.target === id));
+        target.scrollTop = 0;
+      };
+      let introTimer;
+      document.addEventListener('click', event => {
+        const target = event.target.closest('[data-target]');
+        if (target) {
+          window.clearTimeout(introTimer);
+          showPage(target.dataset.target);
+        }
+      });
+
+      const bgm = document.getElementById('bgm');
+      const bgmControl = document.getElementById('bgmControl');
+      const bgmButton = document.getElementById('bgmButton');
+      if (data.music?.src) {
+        bgm.src = data.music.src;
+        bgm.volume = .5;
+        bgmControl.dataset.ready = 'true';
+        bgmButton.addEventListener('click', async () => {
+          if (bgm.paused) {
+            try { await bgm.play(); bgmButton.textContent = '⏸️'; bgmButton.setAttribute('aria-label', '暂停背景音乐'); }
+            catch { bgmButton.textContent = '▶️'; }
+          } else {
+            bgm.pause(); bgmButton.textContent = '▶️'; bgmButton.setAttribute('aria-label', '播放背景音乐');
+          }
+        });
+        document.querySelectorAll('video').forEach(video => {
+          video.addEventListener('play', () => { if (!bgm.paused) bgm.volume = .12; });
+          video.addEventListener('pause', () => { bgm.volume = .5; });
+          video.addEventListener('ended', () => { bgm.volume = .5; });
+        });
+      }
+      showPage('loading');
+      introTimer = window.setTimeout(() => showPage('preface'), 1800);
+    })();
+  </script>
+</body>
+</html>

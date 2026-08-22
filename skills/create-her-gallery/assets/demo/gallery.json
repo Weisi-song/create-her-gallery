@@ -1,0 +1,41 @@
+{
+  "slug": "demo",
+  "displayName": "小满",
+  "title": "把她写进春天里",
+  "subtitle": "一份关于勇气、温柔与同行的诗相册",
+  "layout": "romantic-stage",
+  "theme": "summer-film",
+  "preface": "有些相遇像一束很轻的光，\n不声不响，却把寻常的日子照亮。\n这一页一页，收着她走过的路，\n也收着我们不曾郑重说出口的珍惜。",
+  "background": "preset:sunlit-valley",
+  "chapters": [
+    {
+      "title": "她先是她自己",
+      "kicker": "在所有称呼以前",
+      "text": "她把好奇留给远方，\n也把认真留给每一个今天。\n世界给过她许多名字，\n而她始终保留着自己的光。",
+      "media": [
+        {
+          "src": "../backgrounds/star-meadow.jpg",
+          "alt": "星星散落在草地上的梦幻风景",
+          "caption": "愿她永远拥有出发的勇气。",
+          "motion": "slow-zoom",
+          "duration": 3.2
+        }
+      ]
+    },
+    {
+      "title": "温柔也有力量",
+      "kicker": "在彼此陪伴的时候",
+      "text": "她记得一句无心的话，\n也接得住一个突然低落的黄昏。\n那些看似细小的照顾，\n后来都成了岁月里安静的回声。",
+      "media": [
+        {
+          "src": "../backgrounds/teal-sky.jpg",
+          "alt": "青绿色天空下的童话风景",
+          "caption": "被她照亮的人，也想把光还给她。",
+          "motion": "drift-left",
+          "duration": 3.2
+        }
+      ]
+    }
+  ],
+  "dedication": "愿往后的风景不必匆忙，\n愿喜欢的事都有回响。\n愿你在照顾世界的时候，\n也总有人记得，好好拥抱你。"
+}
