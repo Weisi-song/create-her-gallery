@@ -284,7 +284,9 @@
     .media-viewport {
       position: relative;
       height: 100%;
+      width: auto;
       max-width: 100%;
+      flex: 0 1 auto;
       aspect-ratio: 2 / 3;
       overflow: hidden;
       border-radius: 18px;
@@ -417,6 +419,7 @@
       .media-panel { padding: 6px 14px 14px; transform: translateY(30px); }
       .chapter-page[data-phase="media"] .media-panel { height: auto; min-height: min(58svh, 520px); transform: translateY(0); }
       .chapter-page[data-phase="media"] .media-frame { height: min(56svh, 500px); }
+      .chapter-page[data-phase="media"] .media-viewport { width: min(100%, 334px); height: auto; max-height: min(56svh, 500px); }
       .media-frame { border-radius: 17px; }
       .media-meta { min-height: 34px; padding-top: 5px; }
       .page-turn { width: 70px; height: 70px; }

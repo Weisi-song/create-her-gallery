@@ -26,6 +26,8 @@ def main() -> int:
     parser.add_argument("--height", type=even_positive, default=1080)
     parser.add_argument("--duration", type=float, default=3.0)
     parser.add_argument("--animation-start", type=float, default=0.0, help="卡通动画的起始秒数")
+    parser.add_argument("--fit", choices=("contain", "cover"), default="contain", help="完整留边或裁切铺满")
+    parser.add_argument("--focus-y", type=float, default=0.0, help="cover 裁切焦点：-50 顶部，0 中间，50 底部")
     parser.add_argument("--background", default="0x20332d", help="留白填充色，使用 FFmpeg 颜色格式")
     args = parser.parse_args()
 
@@ -44,13 +46,23 @@ def main() -> int:
     if args.animation_start < 0:
         print("ERROR: animation-start 不能小于 0。", file=sys.stderr)
         return 1
+    if not -50 <= args.focus_y <= 50:
+        print("ERROR: focus-y 必须在 -50 到 50 之间。", file=sys.stderr)
+        return 1
 
     panel_height = args.height // 2
-    fit = (
-        f"scale={args.width}:{panel_height}:force_original_aspect_ratio=decrease,"
-        f"pad={args.width}:{panel_height}:(ow-iw)/2:(oh-ih)/2:color={args.background},"
-        "setsar=1"
-    )
+    if args.fit == "cover":
+        focus_ratio = (args.focus_y + 50) / 100
+        fit = (
+            f"scale={args.width}:{panel_height}:force_original_aspect_ratio=increase,"
+            f"crop={args.width}:{panel_height}:(iw-ow)/2:(ih-oh)*{focus_ratio:.4f},setsar=1"
+        )
+    else:
+        fit = (
+            f"scale={args.width}:{panel_height}:force_original_aspect_ratio=decrease,"
+            f"pad={args.width}:{panel_height}:(ow-iw)/2:(oh-ih)/2:color={args.background},"
+            "setsar=1"
+        )
     filter_graph = f"[0:v]{fit}[top];[1:v]{fit}[bottom];[top][bottom]vstack=inputs=2,format=yuv420p[out]"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     command = [
@@ -70,7 +82,7 @@ def main() -> int:
         return 1
 
     print(f"已生成上下对照动画：{args.output.resolve()}")
-    print(f"画面：{args.width}×{args.height}；时长：{args.duration:.1f} 秒")
+    print(f"画面：{args.width}×{args.height}；时长：{args.duration:.1f} 秒；适配：{args.fit}")
     return 0
 
 

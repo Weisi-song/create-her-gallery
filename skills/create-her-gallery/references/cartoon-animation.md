@@ -45,6 +45,8 @@ When an external tool returns a longer clip, choose a stable three-second window
 
 The default output is a silent 720×1080, 30 fps, three-second H.264 MP4. Use the resulting MP4 as the chapter media `src`. The romantic template will autoplay it muted and advance when it ends.
 
+Keep the default `--fit contain` when preserving the full composition matters. When visible side bars make a portrait pair feel unbalanced, use `--fit cover --focus-y -35` only after checking that every head and meaningful object remains visible. Adjust `focus-y` toward `-50` to protect the top of the image; never choose a crop only to force uniformity.
+
 ## 5. Review the batch
 
 Check every comparison clip for:
