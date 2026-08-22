@@ -6,6 +6,14 @@ Create Her Gallery 是一个面向 Codex 的创作 Skill。它不会一上来要
 
 > 照片、视频、故事和音乐默认只在本地处理，不需要上传到网站。
 
+> 这是我的独立项目。我独立完成了访谈流程、内容策展方法、交互与模板设计、构建脚本、隐私规则和示例案例。
+
+## 为什么做
+
+给一个重要的人制作数字礼物时，最难的通常不是把照片放进网页，而是决定“应该怎样讲她的故事”。固定模板很容易把不同的人生压成同一种叙事，单纯的照片轮播又无法表达关系、记忆和送礼者真正想说的话。
+
+因此我把它做成一个会先访谈、再策展的 Skill。它先帮助用户梳理人物、关系、经历和原话，再提出不同的叙事结构；确认方向后，才进入文字、图像、动画、音乐和页面制作。技术生成被放在故事之后，而不是反过来。
+
 ## 最终会得到什么
 
 - 一份为具体的人重新构思、而不是套用固定人生模板的诗相册
@@ -127,6 +135,14 @@ Turn one person's photographs and stories into a poetic visual gallery made spec
 Create Her Gallery is a guided Codex Skill. Instead of starting with a complicated form, it works like a curatorial editor: it asks who she is and what you have experienced together, then helps shape the writing, chapters, illustration style, animation, music, and background before exporting a single offline HTML file.
 
 > Photos, videos, stories, and music are processed locally by default and do not need to be uploaded to a website.
+
+> An independent project. I designed and built the interview flow, curation method, interaction and templates, build scripts, privacy rules, and example cases.
+
+## Why I built it
+
+The hardest part of making a digital gift is rarely placing photos on a page; it is deciding how to tell one person's story. Fixed templates flatten different lives into the same narrative, while a slideshow alone cannot express relationships, memories, and what the giver wants to say.
+
+The Skill therefore interviews before it produces. It helps the user collect people, relationships, experiences, and quotations, proposes several narrative structures, and only then moves into writing, imagery, animation, music, and page building.
 
 ## What it creates
 
