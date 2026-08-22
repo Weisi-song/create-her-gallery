@@ -2,6 +2,10 @@
 
 把一个人的照片与故事，做成送给她的诗意影像相册。
 
+[在线体验示例](https://weisi-song.github.io/create-her-gallery/) · [View the live demo](https://weisi-song.github.io/create-her-gallery/)
+
+![她的故事在线示例 / Create Her Gallery live demo](assets/demo-preview.png)
+
 Create Her Gallery 是一个面向 Codex 的创作 Skill。它不会一上来要求你填写复杂表单，而是像一位策展编辑一样，一步步询问她是谁、你们经历过什么，再共同确定文字、章节、卡通画风、动画、音乐和背景，最后导出一个可以离线打开与直接转发的单文件 HTML。
 
 > 照片、视频、故事和音乐默认只在本地处理，不需要上传到网站。
