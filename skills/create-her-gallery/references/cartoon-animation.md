@@ -28,6 +28,8 @@ Personal photos may be sensitive. Name the external provider and obtain explicit
 
 Animate the approved cartoon still, not the original photo. Target exactly 3 seconds at 24 or 30 fps. Prefer restrained movement: blinking, breathing, a slight smile, hair or clothing moving in a breeze, or a very slow camera push. Keep the camera, face, body, hands, person count, clothing, and important objects stable. Reject morphing, lip-sync without a request, large gestures, identity drift, or invented scene events.
 
+Use an integrated image-to-video provider only after naming it and obtaining approval to upload the cartoon stills. If no provider or credentials are available, or the user prefers another app, do not block the gallery and do not substitute unexplained static zooms. Follow [video-handoff.md](video-handoff.md), give the user every approved cartoon still with its own motion prompt, and resume composition when the rendered clips return.
+
 ## 4. Compose the comparison
 
 Place the untouched original photo on top and the three-second cartoon animation below. Preserve both full compositions with contained scaling and matching panel sizes; do not crop heads merely to fill the frame.
@@ -38,6 +40,8 @@ Run:
 python3 scripts/compose_photo_pair.py original.jpg cartoon-animation.mp4 \
   --output generated/original-cartoon-pair.mp4
 ```
+
+When an external tool returns a longer clip, choose a stable three-second window and pass its start time with `--animation-start`.
 
 The default output is a silent 720×1080, 30 fps, three-second H.264 MP4. Use the resulting MP4 as the chapter media `src`. The romantic template will autoplay it muted and advance when it ends.
 

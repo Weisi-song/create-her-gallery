@@ -16,7 +16,7 @@ Offer 2–3 genuinely different narrative frameworks based on the interview. Let
 
 ## 4. Photos and cartoon animation
 
-Ask the user to provide the selected photos. Inventory and group them by chapter. Offer 2–3 consistent cartoon directions, create only 1–2 samples, and request approval before batch processing. Follow [cartoon-animation.md](cartoon-animation.md) to create three-second original-over-animation clips.
+Ask the user to provide the selected photos. Inventory and group them by chapter. Offer 2–3 consistent cartoon directions, create only 1–2 samples, and request approval before batch processing. Follow [cartoon-animation.md](cartoon-animation.md) to create three-second original-over-animation clips. If direct video generation is unavailable or the user wants to use another app, offer the external handoff in [video-handoff.md](video-handoff.md); pause only after delivering a complete numbered package, then resume when the videos return.
 
 ## 5. Music and background
 

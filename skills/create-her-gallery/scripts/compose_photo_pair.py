@@ -25,6 +25,7 @@ def main() -> int:
     parser.add_argument("--width", type=even_positive, default=720)
     parser.add_argument("--height", type=even_positive, default=1080)
     parser.add_argument("--duration", type=float, default=3.0)
+    parser.add_argument("--animation-start", type=float, default=0.0, help="卡通动画的起始秒数")
     parser.add_argument("--background", default="0x20332d", help="留白填充色，使用 FFmpeg 颜色格式")
     args = parser.parse_args()
 
@@ -40,6 +41,9 @@ def main() -> int:
     if not 0.5 <= args.duration <= 30:
         print("ERROR: duration 必须在 0.5–30 秒之间。", file=sys.stderr)
         return 1
+    if args.animation_start < 0:
+        print("ERROR: animation-start 不能小于 0。", file=sys.stderr)
+        return 1
 
     panel_height = args.height // 2
     fit = (
@@ -52,7 +56,7 @@ def main() -> int:
     command = [
         "ffmpeg", "-v", "error", "-y",
         "-loop", "1", "-framerate", "30", "-i", str(args.original),
-        "-stream_loop", "-1", "-i", str(args.animation),
+        "-stream_loop", "-1", "-ss", str(args.animation_start), "-i", str(args.animation),
         "-filter_complex", filter_graph,
         "-map", "[out]", "-an", "-t", str(args.duration), "-r", "30",
         "-c:v", "libx264", "-preset", "medium", "-crf", "20",
