@@ -1,4 +1,4 @@
-# Create Her Gallery
+# 她的故事｜Create Her Gallery
 
 把一个人的照片与故事，做成送给她的诗意影像相册。
 
