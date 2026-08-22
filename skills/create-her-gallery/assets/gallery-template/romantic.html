@@ -284,9 +284,7 @@
     .media-viewport {
       position: relative;
       height: 100%;
-      width: auto;
       max-width: 100%;
-      flex: 0 1 auto;
       aspect-ratio: 2 / 3;
       overflow: hidden;
       border-radius: 18px;
@@ -306,12 +304,10 @@
       transition: opacity .7s ease;
     }
     .chapter-video, .chapter-image {
-      position: absolute;
-      inset: 0;
+      position: relative;
       z-index: 2;
       width: 100%;
       height: 100%;
-      margin: auto;
       display: block;
       object-fit: contain;
       object-position: center;
@@ -405,62 +401,26 @@
       58% { opacity: .78; }
       100% { opacity: 0; transform: translate(calc(-50% + var(--star-x)), calc(-50% + var(--star-y))) rotate(var(--star-turn)) scale(.55); }
     }
-    @media (max-width: 960px) {
+    @media (max-width: 720px) {
       .page { padding: 72px 10px max(12px, env(safe-area-inset-bottom)); }
       .chapter-page { display: block; overflow-y: auto; }
       .topbar { top: max(10px, env(safe-area-inset-top)); width: calc(100vw - 20px); grid-template-columns: minmax(0,1fr) auto auto; gap: 9px; padding: 8px 11px; }
       .music-text { display: none; }
       .story-stage { width: calc(100vw - 20px); height: calc(100svh - 88px); margin: 0 auto; border-radius: 22px 22px 48px 22px; }
-      .chapter-page[data-phase="media"] .story-stage { height: auto; min-height: calc(100svh - 88px); grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; gap: 0; transition: none; }
+      .chapter-page[data-phase="media"] .story-stage { height: auto; min-height: calc(100svh - 88px); grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 0; }
       .poem-panel, .chapter-page[data-phase="media"] .poem-panel { align-items: center; justify-content: center; padding: 22px 22px 12px; text-align: center; }
-      .chapter-page[data-phase="media"] .poem-panel { grid-column: 1; grid-row: 1; width: 100%; height: auto; min-height: 0; justify-content: flex-start; padding-top: 32px; }
+      .chapter-page[data-phase="media"] .poem-panel { height: auto; min-height: 0; justify-content: flex-start; padding-top: 32px; }
       .chapter-title, .chapter-page[data-phase="media"] .chapter-title { font-size: clamp(1.5rem, 5.5vw, 1.95rem); }
       .chapter-page[data-phase="media"] .gold-thread { width: 62px; transform-origin: center; background: linear-gradient(90deg, transparent, var(--honey), transparent); }
       .gold-thread { margin: 12px 0; }
       .poem-lines { gap: .18rem; font-size: clamp(1.02rem, 4.15vw, 1.16rem); line-height: 1.56; }
       .media-panel { padding: 6px 14px 14px; transform: translateY(30px); }
-      .chapter-page[data-phase="media"] .media-panel { grid-column: 1; grid-row: 2; justify-self: stretch; width: 100%; max-width: none; height: auto; min-height: min(58svh, 520px); padding: 6px 14px 14px; transform: translateY(0); }
-      .chapter-page[data-phase="media"] .media-frame { width: 100%; height: min(56svh, 500px); justify-content: center; }
-      .chapter-page[data-phase="media"] .media-viewport { width: min(100%, 334px); height: auto; max-height: min(56svh, 500px); margin-inline: auto; }
+      .chapter-page[data-phase="media"] .media-panel { height: auto; min-height: min(58svh, 520px); transform: translateY(0); }
+      .chapter-page[data-phase="media"] .media-frame { height: min(56svh, 500px); }
       .media-frame { border-radius: 17px; }
       .media-meta { min-height: 34px; padding-top: 5px; }
       .page-turn { width: 70px; height: 70px; }
       .letter-card { width: calc(100vw - 28px); border-radius: 24px 24px 54px 24px; }
-    }
-    @media (orientation: portrait) {
-      .chapter-page[data-phase="media"] .story-stage {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-        width: calc(100vw - 20px);
-        height: auto;
-        min-height: calc(100svh - 88px);
-        margin-inline: auto;
-        gap: 0;
-      }
-      .chapter-page[data-phase="media"] .poem-panel {
-        flex: 0 0 auto;
-        width: 100%;
-      }
-      .chapter-page[data-phase="media"] .media-panel {
-        flex: 0 0 auto;
-        align-self: stretch;
-        width: 100%;
-        max-width: 100%;
-        padding: 6px 14px 14px;
-      }
-      .chapter-page[data-phase="media"] .media-frame {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-      .chapter-page[data-phase="media"] .media-viewport {
-        flex: 0 0 auto;
-        width: min(334px, calc(100vw - 48px));
-        height: auto;
-        margin: 0 auto;
-        aspect-ratio: 2 / 3;
-      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
